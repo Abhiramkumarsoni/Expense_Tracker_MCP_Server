@@ -1,0 +1,57 @@
+install uv
+create a project folder name "any name"
+open the folder in vs code 
+open terminal
+execute the command 
+     uv init .  "." meaning current directory
+     uv add fastmcp   --> for python pip install fastmcp
+     
+     # to check the version type this 
+     uv run fastmcp version
+           or 
+     uv run fastmcp --version
+
+create a basic server 
+            import random
+            from fastmcp import FastMCP
+
+            # Create a FastMCP server instance
+            mcp = FastMCP(name="Demo Server")
+
+
+            @mcp.tool
+            def roll_dice(n_dice: int = 1) -> list[int]:
+                """Roll n_dice 6-sided dice and return the results."""
+                return [random.randint(1, 6) for _ in range(n_dice)]
+
+
+            @mcp.tool
+            def add_numbers(a: float, b: float) -> float:
+                """Add two numbers together."""
+                return a + b
+
+
+            if __name__ == "__main__":
+                mcp.run()
+           
+Test the server 
+
+    uv run fastmcp dev inspector main.py
+    equivalent to
+    fastmcp inspector main.py
+
+Run the server
+  uv run fastmcp run main.py
+
+Add the server to claude desktop
+  
+  'failed code because path mismatch'
+  uv run fastmcp install claude-desktop main.py
+  
+  'On this machine, Claude Desktop is installed in the Windows package folder so this is the command
+  correct command'
+  uv run fastmcp install claude-desktop main.py --config-path "C:\Users\Edunet Foundation\AppData\Local\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Roaming\Claude"
+
+
+
+now go to the claude desktop and use this mcp server 
